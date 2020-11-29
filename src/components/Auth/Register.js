@@ -1,4 +1,4 @@
-import React, { useState,useEffect} from 'react';
+import React, { useState} from 'react';
 import { Grid, Header, Message, Icon, Button, Segment, Form } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import firebase from '../../firebase';
@@ -105,7 +105,7 @@ const Register = () => {
     return (
         <Grid textAlign="center" verticalAlign="middle" className="app">
             <Grid.Column style={{ maxWidth: 450 }}>
-                <Header as="h2" icon color="blue" textAlign="center">
+                <Header as="h1" icon color="blue" textAlign="center">
                     <Icon name="signup" color="blue" />
                     Register For Chat
                </Header>
