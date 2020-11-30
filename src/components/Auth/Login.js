@@ -71,7 +71,7 @@ const Login = () => {
         <Grid textAlign="center" verticalAlign="middle" className="app">
             <Grid.Column style={{ maxWidth: 450 }}>
                 <Header as="h1" icon color="pink" textAlign="center">
-                    <Icon name="login" color="pink" />
+                    <Icon name="sign-in" color="pink" />
                     Login to Chat
                </Header>
                 <Form size="large" onSubmit={handleSubmit}>
