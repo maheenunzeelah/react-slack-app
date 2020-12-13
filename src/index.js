@@ -5,8 +5,16 @@ import reportWebVitals from './reportWebVitals';
 import {BrowserRouter as Router, Switch, Route, withRouter} from 'react-router-dom';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
-import 'semantic-ui-css/semantic.min.css'
+import 'semantic-ui-css/semantic.min.css';
 import firebase from './firebase';
+import {Provider,connect} from 'react-redux';
+import{createStore} from 'redux';
+import reducers from './reducers';
+import{composeWithDevTools} from 'redux-devtools-extension';
+import {setUser} from './actions';
+import Spinner from './components/Spinner';
+
+const store=createStore(reducers,composeWithDevTools())
 
 const Root=(props)=>{
 
@@ -14,11 +22,12 @@ const Root=(props)=>{
     firebase.auth()
      .onAuthStateChanged(user=>{
        if(user){
+         props.setUser(user)
          props.history.push('/')
        }
      })
-  })
-  return(
+  },[props.loading])
+  return props.loading?<Spinner />:(
     
       <Switch>
         <Route exact path='/' component={App} />
@@ -28,14 +37,18 @@ const Root=(props)=>{
     
   )
 }
-
-const RootWithRouter=withRouter(Root)
+const mapStateToProps=(state)=>{
+ return{
+   loading:state.user.loading
+ }
+}
+const RootWithRouter=withRouter(connect(mapStateToProps,{setUser})(Root))
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <Router>
     <RootWithRouter />
     </Router>
-  </React.StrictMode>,
+    </Provider>,
   document.getElementById('root')
 );
 
